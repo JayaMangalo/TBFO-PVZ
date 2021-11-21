@@ -1,3 +1,7 @@
+'''
+Adapted from https://github.com/adelmassimo/CFG2CNF with few modifications.
+'''
+
 import re
 import itertools
 
@@ -12,14 +16,8 @@ def loadModel(modelPath):
     K = (file.split("Variables:\n")[0].replace("Terminals:\n","").replace("\n",""))
     V = (file.split("Variables:\n")[1].split("Productions:\n")[0].replace("Variables:\n","").replace("\n",""))
     P = (file.split("Productions:\n")[1])
-    print("Ini K")
-    print(K)
-    print("Ini V")
-    print(V)
-    print("Ini P")
-    print(P)
     return cleanAlphabet(K), cleanAlphabet(V), cleanProduction(P)
-    
+
 #Make production easy to work with
 def cleanProduction(expression):
 	result = []
@@ -50,7 +48,6 @@ def seekAndDestroy(target, productions):
 def setupDict(productions, variables, terms):
 	result = {}
 	for production in productions:
-		#
 		if production[left] in variables and production[right][0] in terms and len(production[right]) == 1:
 			result[production[right][0]] = production[left]
 	return result

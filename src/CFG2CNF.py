@@ -43,8 +43,6 @@ def TERM(productions, variables):
     newProductions = []
     #create a dictionari for all base production, like A->a, in the form dic['a'] = 'A'
     dictionary = helper.setupDict(productions, variables, terms=K)
-    print("ini productions")
-    print(productions)
     for production in productions:
         #check if the production is simple
         if isSimple(production):
