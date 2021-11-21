@@ -1,78 +1,45 @@
-ALGORITHM -> ALGORITHM ALGORITHM | WHILE | FOR |DEF | CLASS | IMPORT | FROM | DECLARE | PRINT | INPUT
-
-
-DECLARE -> variable  = VARIABLE4 | variabel = [] | variable OTHER_OPERATOR VARIABLE3 
-VARIABLE1 -> variable | VARIABLE2
-VARIABLE2 ->VARIABLE1 OPERATOR VARIABLE1 | number | BOOLEAN | STRING 
-VARIABLE3 -> variabel | number
-VARIABLE4 -> VARIABLE3 | VARIABLE3 OPERATOR VARIABLE3
-OPERATOR -> + | - | * | / |  // | % | **
-OTHER_OPERATOR -> *= | += | -= | /=
-RELATION -> > | > = | < | < = | ! = | = =
-STRING -> 'string' | "string" | STRING + STRING
-COMMENT -> '''ALGORITHM''' | """ALGORITHM""" | #VARIABLE2
-TYPE -> str | int | float | char
-
-#True, False
-BOOLEAN -> true | false | BOOLEAN AND BOOLEAN | BOOLEAN OR BOOLEAN | NOT BOOLEAN | VARIABLE1  IS VARIABLE1 | VARIABLE1 RELATION VARIABLE1
-
-#None
-NONE -> none
-
-#And, Or, Not
-AND -> and
-OR -> or
-NOT -> not
-
-#As
-AS -> as
-
-#Break, Continue
-BREAK -> break 
-CONTINUE -> continue 
-
-#Class
-CLASS -> class variabel : ALGORITHM
-
-#Def
-DEF -> def variabel (VARIABLE3) : ALGORITHM | def variabel (VARIABLE3) : ALGORITHM RETURN
-FUNCTION_CALL -> variabel(VARIABLE3) | variable ()
-
-#If, Else, Elif
-IF -> if (BOOLEAN) : ALGORITHM | if (variabel RELATION VARIABLE4) : ALGORITHM | IF ELIF | IF ELSE | IF BREAK | IF CONTINUE | IF RAISE |IF PASS
-ELIF -> elif (BOOLEAN) : ALGORITHM | elif (variabel RELATION VARIABLE4) : ALGORITHM | ELIF ELIF| ELIF ELSE
-ELSE -> else : ALGORITHM
-
-#Raise
-RAISE -> raise FUNCTION_CALL
-
-#For
-RANGE -> (VARIABLE3) | (number,number,number) | (STRING)
-FOR -> for variable IN RANGE : ALGORITHM | for variable in variable : ALGORITHM | for variabel in STRING : ALGORITHM
-
-#From, Import
-FROM -> from variabel IMPORT
-IMPORT -> import variable | import variable AS variabel
-
-#In
-IN -> in
-#Is
-IS -> is 
-
-#Pass
-PASS -> pass
-
-#Return
-RETURN -> return BOOLEAN | return variable | return number OPERATOR number | return STRING | return
-
-#While
-WHILE -> while (BOOLEAN) : ALGORITHM | while (variabel RELATION VARIABLE3) : ALGORITHM |while BOOLEAN : ALGORITHM | while variabel RELATION VARIABLE3 : ALGORITHM
-
-#With
-WITH -> with FUNCTION_CALL as variabel: ALGORITHM
-
-#Input
-INPUT -> input () |input (STRING) | TYPE(INPUT)
-
-#Print
-PRINT -> print() | print(VARIABLE2) 
+Terminals:
++ - * / % = > < ! [ ] ( ) ' " # : , variable number string str int float char true false none and or not as break continue class def if elif else raise for in from import is pass return while with input print
+Variables:
+ALGORITHM WHILE FOR DEF CLASS IMPORT FROM DECLARE PRINT INPUT VAR VARIABLE1 VARIABLE2 VARIABLE3 VARIABLE4 OPERATOR OTHER_OPERATOR RELATION STRING COMMENT TYPE BOOLEAN AND OR NOT IS NONE AS BREAK CONTINUE FUNCTION_CALL IF ELIF ELSE RAISE RANGE IN PASS RETURN WITH
+Productions:
+ALGORITHM -> ALGORITHM ALGORITHM | WHILE | FOR | DEF | CLASS | IMPORT | FROM | DECLARE | PRINT | INPUT;
+VAR -> variable;
+DECLARE -> VAR = VARIABLE4 | VAR = [] | VAR OTHER_OPERATOR VARIABLE3;
+VARIABLE1 -> VAR | VARIABLE2;
+VARIABLE2 -> VARIABLE1 OPERATOR VARIABLE1 | number | BOOLEAN | STRING;
+VARIABLE3 -> VAR | number;
+VARIABLE4 -> VARIABLE3 | VARIABLE3 OPERATOR VARIABLE3;
+OPERATOR -> + | - | * | / |  / / | % | * *;
+OTHER_OPERATOR -> * = | + = | - = | / =;
+RELATION -> > | > = | < | < = | ! = | = =;
+STRING -> 'string' | "string" | STRING + STRING;
+COMMENT -> '''ALGORITHM''' | """ALGORITHM""" | #VARIABLE2;
+TYPE -> str | int | float | char;
+BOOLEAN -> true | false | BOOLEAN AND BOOLEAN | BOOLEAN OR BOOLEAN | NOT BOOLEAN | VARIABLE1 IS VARIABLE1 | VARIABLE1 RELATION VARIABLE1;
+NONE -> none;
+AND -> and;
+OR -> or;
+NOT -> not;
+AS -> as;
+BREAK -> break;
+CONTINUE -> continue;
+CLASS -> class VAR : ALGORITHM;
+DEF -> def VAR ( VARIABLE3 ) : ALGORITHM | def VAR ( VARIABLE3 ) : ALGORITHM RETURN;
+FUNCTION_CALL -> VAR ( VARIABLE3 ) | VAR ( );
+IF -> if ( BOOLEAN ) : ALGORITHM | if ( VAR RELATION VARIABLE4 ) : ALGORITHM | IF ELIF | IF ELSE | IF BREAK | IF CONTINUE | IF RAISE | IF PASS;
+ELIF -> elif ( BOOLEAN ) : ALGORITHM | elif ( VAR RELATION VARIABLE4 ) : ALGORITHM | ELIF ELIF | ELIF ELSE;
+ELSE -> else : ALGORITHM;
+RAISE -> raise FUNCTION_CALL;
+RANGE -> ( VARIABLE3 ) | ( number , number , number) | ( number , number ) | ( STRING );
+FOR -> for VAR IN RANGE : ALGORITHM | for VAR IN VAR : ALGORITHM | for VAR IN STRING : ALGORITHM;
+FROM -> from VAR IMPORT;
+IMPORT -> import VAR | import VAR AS VAR;
+IN -> in;
+IS -> is;
+PASS -> pass;
+RETURN -> return BOOLEAN | return VAR | return number OPERATOR number | return STRING | return;
+WHILE -> while ( BOOLEAN ) : ALGORITHM | while ( VAR RELATION VARIABLE3 ) : ALGORITHM | while BOOLEAN : ALGORITHM | while VAR RELATION VARIABLE3 : ALGORITHM;
+WITH -> with FUNCTION_CALL AS VAR : ALGORITHM;
+INPUT -> input ( ) | input ( STRING ) | TYPE ( INPUT );
+PRINT -> print ( ) | print ( VARIABLE2 )
