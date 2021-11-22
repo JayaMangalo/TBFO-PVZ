@@ -22,15 +22,15 @@ def Check0to9(input):
 
 
 #Tester
-Filename = input("MASUKAN NAMA FILE: ");
-f = open(Filename, "r")
-contents = f.read()
-f.close()
+# Filename = input("MASUKAN NAMA FILE: ");
+# f = open(Filename, "r")
+# contents = f.read()
+# f.close()
 
 
-print(contents)
+# print(contents)
 
-if CheckVariableName(contents):
-    print("True")
-else:
-    print("False")
+# if CheckVariableName(contents):
+#     print("True")
+# else:
+#     print("False")
