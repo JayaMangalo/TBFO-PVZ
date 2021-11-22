@@ -20,24 +20,25 @@ def read_cnf(filename="src\cnf.txt"):
         return var_rules, terminal_rules
 
 def convert_cnf(var_rules, terminal_rules):
-    dict = {}
-    for i in range(len(terminal_rules)):
-        for el in terminal_rules[i][1].split():
-            if el in dict:
-                dict[el].append(terminal_rules[i][0])
-            else:
-                temp = []
-                temp.append(terminal_rules[i][0])
-                dict[el] = temp
-    for i in range(len(var_rules)):
-        for el in var_rules[i][1].split():
-            if el in dict:
-                dict[el].append(var_rules[i][0])
-            else:
-                temp = []
-                temp.append(var_rules[i][0])
-                dict[el] = temp
-    return dict
+    dict_var = {}
+    dict_term = {}
+
+    for el in terminal_rules:
+        if el[1] in dict_term:
+            dict_term[el[1]].append(el[0])
+        else:
+            temp = []
+            temp.append(el[0])
+            dict_term[el[1]] = temp
+    for el in var_rules:
+        if el[1] in dict_var:
+            dict_var[el[1]].append(el[0])
+        else:
+            temp = []
+            temp.append(el[0])
+            dict_var[el[1]] = temp
+
+    return dict_term, dict_var
 
 def read_inp(filename):
     file = os.path.join(os.getcwd(), filename)
@@ -67,21 +68,22 @@ def cyk(dict, code):
         # res = map_proc(code[i])
         # table[0][i] = dict[res]
 
-# fc = read_inp("src\inputAcc.py")
-# print(fc)
+fc = read_inp("src\inputAcc.py")
+print(fc)
 
-# v, t = read_cnf()
-# print()
-# print("ini v")
-# for i in range(len(v)):
-#     print(v[i])
-# print()
-# print("ini t")
-# for i in range(len(t)):
-#     print(t[i])
-# print()
-# print("coba")
-# print(v[0][1].split())
-# dict_test = convert_cnf(v,t)
-# print("\nini dict nya")
-# print(dict_test)
+v, t = read_cnf()
+print()
+print("ini v")
+for i in range(len(v)):
+    print(v[i])
+print()
+print("ini t")
+for i in range(len(t)):
+    print(t[i])
+print()
+dict_v, dict_t = convert_cnf(v,t)
+print("\nini dict V nya")
+print(dict_v)
+print()
+print("\nini dict T nya")
+print(dict_t)
