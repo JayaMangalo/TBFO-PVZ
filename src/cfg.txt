@@ -1,5 +1,5 @@
 Terminals:
-+ - * / % = > < ! [ ] ( ) ' " # : , & ^ variable number string str int float char true false none and or not as break continue class def if elif else raise for in from import is pass return while with input print
++ - * / % = > < ! [ ] ( ) ' " # : , & ^ variable number string str int float char True False none and or not as break continue class def if elif else raise for in from import is pass return while with input print
 Variables:
 ALGORITHM WHILE FOR DEF CLASS IMPORT FROM DECLARE PRINT INPUT VAR VARIABLE1 VARIABLE2 VARIABLE3 VARIABLE4 VARIABLE5 OPERATOR OTHER_OPERATOR RELATION STRING COMMENT TYPE BOOLEAN AND OR NOT IS NONE AS BREAK CONTINUE FUNCTION_CALL IF ELIF ELSE RAISE RANGE IN PASS RETURN WITH INLINE_FOR INLINE_RANGE DICTIONARY
 Productions:
@@ -16,9 +16,9 @@ OTHER_OPERATOR -> * = | + = | - = | / = | % = | / / = | * * = | & = | ^ = | > > 
 DICTIONARY -> VAR = { } | VAR = { VARIABLE3 : VARIABLE3 };
 RELATION -> > | > = | < | < = | ! = | = =;
 STRING -> ' string ' | " string " | STRING + STRING;
-COMMENT -> ' ' ' ALGORITHM ' ' ' | " " " ALGORITHM " " " ;
+COMMENT -> ' ' ' ALGORITHM ' ' ' | " " " ALGORITHM " " ";
 TYPE -> str | int | float | char;
-BOOLEAN -> true | false | BOOLEAN AND BOOLEAN | BOOLEAN OR BOOLEAN | NOT BOOLEAN | VARIABLE1 IS VARIABLE1 | VARIABLE1 RELATION VARIABLE1;
+BOOLEAN -> True | False | BOOLEAN AND BOOLEAN | BOOLEAN OR BOOLEAN | NOT BOOLEAN | VARIABLE1 IS VARIABLE1 | VARIABLE1 RELATION VARIABLE1;
 NONE -> None;
 AND -> and;
 OR -> or;
@@ -43,7 +43,7 @@ IN -> in;
 IS -> is;
 PASS -> pass;
 RETURN -> return BOOLEAN | return VAR | return number OPERATOR number | return STRING | return;
-WHILE -> while ( BOOLEAN ) : ALGORITHM | while ( VAR RELATION VARIABLE3 ) : ALGORITHM | while BOOLEAN : ALGORITHM | while VAR RELATION VARIABLE3 : ALGORITHM;
+WHILE -> while ( BOOLEAN ) : ALGORITHM | while ( VAR RELATION VARIABLE3 ) : ALGORITHM | while ( FUNCTION_CALL ) : ALGORITHM | while BOOLEAN : ALGORITHM | while VAR RELATION VARIABLE3 : ALGORITHM | while FUNCTION_CALL : ALGORITHM;
 WITH -> with FUNCTION_CALL AS VAR : ALGORITHM;
 INPUT -> input ( ) | input ( STRING ) | TYPE ( INPUT );
 PRINT -> print ( ) | print ( VARIABLE2 )

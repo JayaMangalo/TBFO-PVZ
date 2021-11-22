@@ -3,7 +3,7 @@ import helper
 import CheckVarName as cvn
 import re
 
-def read_cnf(filename="src\cnf.txt"):
+def read_cnf(filename="src\cnfnew.txt"):
     file = os.path.join(os.getcwd(), filename)
     with open(file) as cnf:
         rules = cnf.readlines()
@@ -24,35 +24,21 @@ def read_cnf(filename="src\cnf.txt"):
 def convert_cnf(var_rules, terminal_rules):
     dict = {}
 
-    # for el in terminal_rules:
-    #     if el[1] in dict:
-    #         dict[el[1]].append(el[0])
-    #     else:
-    #         temp = []
-    #         temp.append(el[0])
-    #         dict[el[1]] = temp
-    # for el in var_rules:
-    #     if el[1] in dict:
-    #         dict[el[1]].append(el[0])
-    #     else:
-    #         temp = []
-    #         temp.append(el[0])
-    #         dict[el[1]] = temp
     for el in terminal_rules:
         if el[1] in dict:
-            dict[el[0]].append(el[1])
+            dict[el[1]].append(el[0])
         else:
             temp = []
-            temp.append(el[1])
-            dict[el[0]] = temp
+            temp.append(el[0])
+            dict[el[1]] = temp
     for el in var_rules:
-        if el[0] in dict:
-            dict[el[0]].append(el[1])
+        if el[1] in dict:
+            dict[el[1]].append(el[0])
         else:
             temp = []
-            temp.append(el[1])
-            dict[el[0]] = temp
-
+            temp.append(el[0])
+            dict[el[1]] = temp
+    
     return dict
 
 def separator(lines):
@@ -121,24 +107,34 @@ def cyk(dict, code):
     #filling in the table
     for j in range(0,len(code)):
         #iterate over the dict
-        for key,item in dict.items():
-            # cek di terminal_rules
-            isNumber = cvn.CheckNumber(code[j])
-            if(isNumber):
-                code[j] = 'number'
-            if(len(key.split()) == 1 and key[0] == code[j]):
-                print("base : ", end="")
-                print(item)
-                for items in item:
-                    table[j][j].add(items)
-        for i in range(j,-1,-1):
-            for k in range(i,j+1):
-                for key,item in dict.items():
-                    if(len(key.split())==2 and (key[0] in table[i][k]) and (key[1] in table[k+1][j])):
-                        print("recurrence : ", end="")
-                        print(item)
-                        for items in item:
-                            table[i][j].add(items)
+        for lhs, rule in dict.items():
+            for rhs in rule:
+                isNumber = cvn.CheckNumber(code[j])
+                if(isNumber):
+                    code[j] = 'number'
+                # If a terminal is found
+                if len(rhs) == 1 and \
+                rhs[0] == code[j]:
+                    print("base : ", end="")
+                    print(rhs)
+                    table[j][j].add(lhs)
+  
+        for i in range(j, -1, -1):   
+               
+            # Iterate over the range i to j + 1   
+            for k in range(i, j + 1):     
+  
+                # Iterate over the rules
+                for lhs, rule in dict.items():
+                    for rhs in rule:
+                          
+                        # If a terminal is found
+                        if len(rhs) == 2 and \
+                        rhs[0] in table[i][k] and \
+                        rhs[1] in table[k + 1][j]:
+                            print("recurrence : ", end="")
+                            print(rhs)
+                            table[i][j].add(lhs)
 
     for i in range(len(code)):
         for j in range(len(code)):
