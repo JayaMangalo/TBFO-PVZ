@@ -20,25 +20,24 @@ def read_cnf(filename="src\cnf.txt"):
         return var_rules, terminal_rules
 
 def convert_cnf(var_rules, terminal_rules):
-    dict_var = {}
-    dict_term = {}
+    dict = {}
 
     for el in terminal_rules:
-        if el[1] in dict_term:
-            dict_term[el[1]].append(el[0])
+        if el[1] in dict:
+            dict[el[1]].append(el[0])
         else:
             temp = []
             temp.append(el[0])
-            dict_term[el[1]] = temp
+            dict[el[1]] = temp
     for el in var_rules:
-        if el[1] in dict_var:
-            dict_var[el[1]].append(el[0])
+        if el[1] in dict:
+            dict[el[1]].append(el[0])
         else:
             temp = []
             temp.append(el[0])
-            dict_var[el[1]] = temp
+            dict[el[1]] = temp
 
-    return dict_term, dict_var
+    return dict
 
 def read_inp(filename):
     file = os.path.join(os.getcwd(), filename)
@@ -81,9 +80,6 @@ print("ini t")
 for i in range(len(t)):
     print(t[i])
 print()
-dict_v, dict_t = convert_cnf(v,t)
-print("\nini dict V nya")
-print(dict_v)
-print()
-print("\nini dict T nya")
-print(dict_t)
+dict = convert_cnf(v,t)
+print("\nini dict nya")
+print(dict)
