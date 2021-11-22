@@ -12,6 +12,11 @@ def CheckAtoz(input):
     #     return True
     # else:
     #     return False
+def CheckNumber(input):
+    for chars in input:
+        if not Check0to9(chars):
+            return False
+    return True
 def Check0to9(input):
     asci = ord(input)
     return asci >=48 and asci <=57
