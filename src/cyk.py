@@ -1,5 +1,6 @@
 import os
 import helper
+import re
 
 def read_cnf(filename="src\cnf.txt"):
     file = os.path.join(os.getcwd(), filename)
@@ -40,15 +41,41 @@ def convert_cnf(var_rules, terminal_rules):
     return dict
 
 def read_inp(filename):
-    file = os.path.join(os.getcwd(), filename)
-    file_content = []
-    
-    with open(file) as fileinp:
-        inp_line = fileinp.readlines()
-        for line in inp_line:
-            line.replace("    ", "")
-            file_content.append(line[:-1])
-    
+    # Read from file
+    f = open(filename, "r")
+    contents = f.read()
+    contents = contents.split()
+    f.close()
+
+    result = contents
+
+    operators = [':', ',', '=', '<', '>', '>=', '<=', '==', '!=', r'\+', '-', r'\*', '/', r'\*\*', r'\(', r'\)',r'\'\'\'', r'\'', r'\"']
+
+    # For each operator..
+    for operator in operators:
+        temporaryResult = []
+        # For each statement..
+        for statement in result:
+            format = r"[A..z]*(" + operator +r")[A..z]*"
+            x = re.split(format, statement)
+            
+            # Append 
+            for splitStatement in x:
+                temporaryResult.append(splitStatement) 
+        file_content = temporaryResult
+
+    # Strip space
+    temporaryResult = []
+    for statement in result:
+        stripped = statement.split()
+        for splitStatement in stripped: 
+            temporaryResult.append(splitStatement)
+
+    file_content = temporaryResult
+
+    # Strip empty string
+    file_content = [string for string in result if string!='']
+
     return file_content
 
 def map_proc(piece):
@@ -59,27 +86,47 @@ def map_proc(piece):
     }
 
 def cyk(dict, code):
-    # triangular array of set
-    table = [[set([]) for j in range(len(code)-i)] for i in range(len(code))]
+    table = [[set([]) for j in range(len(code))] for i in range(len(code))]
+
+    #filling in the table
+    for j in range(0,len(code)):
+        #iterate over the dict
+        for key,item in dict.items():
+            if(len(key.split()) == 1 and key[0] == code[j]):
+                table[j][j].add(item)
+        for i in range(j,-1,-1):
+            for k in range(i,j+1):
+                for key,item in dict.items():
+                    if(len(key.split)==2 and key[0] in table[i][k] and key[1] in table[k+1][j]):
+                        table[i][j].add(item)
+
+    if(len(table[0][len(code)-1])!= 0):
+        print("true")
+    else:
+        print("false")
+
+    
+    
+
     
     # base case where code is translated to regex then mapped to lhs that has converted to the key of dict
     #for i in range(len(code)):
         # res = map_proc(code[i])
         # table[0][i] = dict[res]
 
-fc = read_inp("src\inputAcc.py")
-print(fc)
+# fc = read_inp("src\inputAcc.py")
+# print(fc)
 
-v, t = read_cnf()
-print()
-print("ini v")
-for i in range(len(v)):
-    print(v[i])
-print()
-print("ini t")
-for i in range(len(t)):
-    print(t[i])
-print()
-dict = convert_cnf(v,t)
-print("\nini dict nya")
-print(dict)
+# v, t = read_cnf()
+# print()
+# print("ini v")
+# for i in range(len(v)):
+#     print(v[i])
+# print()
+# print("ini t")
+# for i in range(len(t)):
+#     print(t[i])
+# print()
+# dict = convert_cnf(v,t)
+# print("\nini dict nya")
+# print(dict)
