@@ -2,7 +2,7 @@ def CheckVariableName(var_name):
     if(not CheckAtoz(var_name[0])):
         return False
     for i in range(len(var_name)-1):
-        if not (CheckAtoz(var_name[i]) or Check0to9(var_name[i])):
+        if not (CheckAtoz(var_name[i]) or Check0to9(var_name[i]) or var_name[i] == '_'):
             return False
     return True
 def CheckAtoz(input):
@@ -23,7 +23,6 @@ def Check0to9(input):
 
 #Tester
 Filename = input("MASUKAN NAMA FILE: ");
-
 f = open(Filename, "r")
 contents = f.read()
 f.close()
