@@ -16,7 +16,7 @@ OTHER_OPERATOR -> * = | + = | - = | / = | % = | / / = | * * = | & = | ^ = | > > 
 DICTIONARY -> VAR = { } | VAR = { VARIABLE3 : VARIABLE3 };
 RELATION -> > | > = | < | < = | ! = | = =;
 STRING -> ' string ' | " string " | STRING + STRING;
-COMMENT -> ' ' ' ALGORITHM ' ' ' | " " " ALGORITHM " " " | # VARIABLE2;
+COMMENT -> ' ' ' ALGORITHM ' ' ' | " " " ALGORITHM " " " ;
 TYPE -> str | int | float | char;
 BOOLEAN -> true | false | BOOLEAN AND BOOLEAN | BOOLEAN OR BOOLEAN | NOT BOOLEAN | VARIABLE1 IS VARIABLE1 | VARIABLE1 RELATION VARIABLE1;
 NONE -> None;
