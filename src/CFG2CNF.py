@@ -156,4 +156,4 @@ if __name__ == '__main__':
 	
 	print( helper.prettyForm(Productions) )
 	print( len(Productions) )
-	open('out.txt', 'w').write(	helper.prettyForm(Productions) )
+	open('cnf.txt', 'w').write(	helper.prettyForm(Productions) )

@@ -24,20 +24,34 @@ def read_cnf(filename="src\cnf.txt"):
 def convert_cnf(var_rules, terminal_rules):
     dict = {}
 
+    # for el in terminal_rules:
+    #     if el[1] in dict:
+    #         dict[el[1]].append(el[0])
+    #     else:
+    #         temp = []
+    #         temp.append(el[0])
+    #         dict[el[1]] = temp
+    # for el in var_rules:
+    #     if el[1] in dict:
+    #         dict[el[1]].append(el[0])
+    #     else:
+    #         temp = []
+    #         temp.append(el[0])
+    #         dict[el[1]] = temp
     for el in terminal_rules:
         if el[1] in dict:
-            dict[el[1]].append(el[0])
+            dict[el[0]].append(el[1])
         else:
             temp = []
-            temp.append(el[0])
-            dict[el[1]] = temp
+            temp.append(el[1])
+            dict[el[0]] = temp
     for el in var_rules:
-        if el[1] in dict:
-            dict[el[1]].append(el[0])
+        if el[0] in dict:
+            dict[el[0]].append(el[1])
         else:
             temp = []
-            temp.append(el[0])
-            dict[el[1]] = temp
+            temp.append(el[1])
+            dict[el[0]] = temp
 
     return dict
 
@@ -113,12 +127,23 @@ def cyk(dict, code):
             if(isNumber):
                 code[j] = 'number'
             if(len(key.split()) == 1 and key[0] == code[j]):
-                table[j][j].add(item)
+                print("base : ", end="")
+                print(item)
+                for items in item:
+                    table[j][j].add(items)
         for i in range(j,-1,-1):
             for k in range(i,j+1):
                 for key,item in dict.items():
-                    if(len(key.split())==2 and key[0] in table[i][k] and key[1] in table[k+1][j]):
-                        table[i][j].add(item)
+                    if(len(key.split())==2 and (key[0] in table[i][k]) and (key[1] in table[k+1][j])):
+                        print("recurrence : ", end="")
+                        print(item)
+                        for items in item:
+                            table[i][j].add(items)
+
+    for i in range(len(code)):
+        for j in range(len(code)):
+            print(table[i][j], end=' ')
+        print()
 
     if(len(table[0][len(code)-1])!= 0):
         print("Accepted")
