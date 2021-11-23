@@ -41,6 +41,36 @@ def convert_cnf(var_rules, terminal_rules):
     
     return dict
 
+def unswap_convert_cnf(var_rules, terminal_rules):
+    dict_unswap = {}
+    for el in terminal_rules:
+        if el[1] in dict_unswap:
+            temp = []
+            for els in el[1].split():
+                temp.append(els)
+            dict_unswap[el[0]].append(temp)
+        else:
+            temp = []
+            temp2 = []
+            for els in el[1].split():
+                temp2.append(els)
+            temp.append(temp2)
+            dict_unswap[el[0]] = temp
+    for el in var_rules:
+        if el[0] in dict_unswap:
+            temp = []
+            for els in el[1].split():
+                temp.append(els)
+            dict_unswap[el[0]].append(temp)
+        else:
+            temp = []
+            temp2 = []
+            for els in el[1].split():
+                temp2.append(els)
+            temp.append(temp2)
+            dict_unswap[el[0]] = temp
+    return dict_unswap
+
 def separator(lines):
     new_lines = []
     for line in lines:
@@ -147,19 +177,23 @@ def cyk(dict, code):
         print("Syntax Error")
 
 v, t = read_cnf()
-# print()
-# print("ini v")
-# for i in range(len(v)):
-#     print(v[i])
-# print()
-# print("ini t")
-# for i in range(len(t)):
-#     print(t[i])
-# print()
+print()
+print("ini v")
+for i in range(len(v)):
+    print(v[i])
+print()
+print("ini t")
+for i in range(len(t)):
+    print(t[i])
+print()
 dict = convert_cnf(v,t)
-# print("\nini dict nya")
-# print(dict)
+print("\nini dict nya")
+print(dict)
 
-fc = read_inp("src\inputAcc.py")
-print(fc)
-cyk(dict, fc)
+dict_unswapped = unswap_convert_cnf(v,t)
+print("\n ini unswapped")
+print(dict_unswapped)
+
+# fc = read_inp("src\inputAcc.py")
+# print(fc)
+# cyk(dict, fc)
