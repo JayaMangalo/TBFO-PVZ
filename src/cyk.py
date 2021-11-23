@@ -133,7 +133,6 @@ def read_inp(filename):
 
 def cyk(dict, code):
     table = [[set([]) for j in range(len(code)+1)] for i in range(len(code)+1)]
-
     #filling in the table
     for j in range(0,len(code)):
         #iterate over the dict
@@ -143,17 +142,14 @@ def cyk(dict, code):
                 if(isNumber):
                     code[j] = 'number'
                 # If a terminal is found
-                if len(rhs) == 1 and \
-                rhs[0] == code[j]:
+                if len(rhs) == 1 and rhs[0] == code[j]:
                     print("base : ", end="")
                     print(rhs)
                     table[j][j].add(lhs)
   
         for i in range(j, -1, -1):   
-               
             # Iterate over the range i to j + 1   
             for k in range(i, j + 1):     
-  
                 # Iterate over the rules
                 for lhs, rule in dict.items():
                     for rhs in rule:
@@ -166,17 +162,17 @@ def cyk(dict, code):
                             print(rhs)
                             table[i][j].add(lhs)
 
-    for i in range(len(code)):
-        for j in range(len(code)):
+    for i in range(len(code)+1):
+        for j in range(len(code)+1):
             print(table[i][j], end=' ')
         print()
 
-    if(len(table[0][len(code)-1])!= 0):
+    if(len(table[0][len(code)-2])!= 0):
         print("Accepted")
     else:
         print("Syntax Error")
 
-v, t = read_cnf("src\cnfnew.txt")
+v, t = read_cnf("src\out.txt")
 print()
 print("ini v")
 for i in range(len(v)):
@@ -197,3 +193,8 @@ print(dict_unswapped)
 fc = read_inp("src\inputAcc.py")
 print(fc)
 cyk(dict_unswapped, fc)
+
+# v,t = read_cnf('src\out.txt')
+# dict = convert_cnf(v,t)
+# fc = ['b', 'b']
+# cyk(dict, fc)
