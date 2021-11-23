@@ -149,7 +149,7 @@ def cyk(dict, code):
   
         for i in range(j, -1, -1):   
             # Iterate over the range i to j + 1   
-            for k in range(i, j + 1):     
+            for k in range(i, j+1):     
                 # Iterate over the rules
                 for lhs, rule in dict.items():
                     for rhs in rule:
@@ -167,28 +167,28 @@ def cyk(dict, code):
             print(table[i][j], end=' ')
         print()
 
-    if(len(table[0][len(code)-2])!= 0):
+    if(len(table[0][len(code)-1])!= 0):
         print("Accepted")
     else:
         print("Syntax Error")
 
 v, t = read_cnf("src\out.txt")
-print()
-print("ini v")
-for i in range(len(v)):
-    print(v[i])
-print()
-print("ini t")
-for i in range(len(t)):
-    print(t[i])
-print()
-dict = convert_cnf(v,t)
-print("\nini dict nya")
-print(dict)
+# print()
+# print("ini v")
+# for i in range(len(v)):
+#     print(v[i])
+# print()
+# print("ini t")
+# for i in range(len(t)):
+#     print(t[i])
+# print()
+# dict = convert_cnf(v,t)
+# print("\nini dict nya")
+# print(dict)
 
 dict_unswapped = unswap_convert_cnf(v,t)
 print("\n ini unswapped")
-print(dict_unswapped)
+# print(dict_unswapped)
 
 fc = read_inp("src\inputAcc.py")
 print(fc)

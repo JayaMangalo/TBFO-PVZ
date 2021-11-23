@@ -1,1 +1,2 @@
-x = 2
+def do_something(x):
+    return "Doodoo"
