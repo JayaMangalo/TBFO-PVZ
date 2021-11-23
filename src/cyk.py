@@ -3,7 +3,7 @@ import helper
 import CheckVarName as cvn
 import re
 
-def read_cnf(filename="src\cnfnew.txt"):
+def read_cnf(filename):
     file = os.path.join(os.getcwd(), filename)
     with open(file) as cnf:
         rules = cnf.readlines()
@@ -132,7 +132,7 @@ def read_inp(filename):
     return new_word
 
 def cyk(dict, code):
-    table = [[set([]) for j in range(len(code))] for i in range(len(code))]
+    table = [[set([]) for j in range(len(code)+1)] for i in range(len(code)+1)]
 
     #filling in the table
     for j in range(0,len(code)):
@@ -176,7 +176,7 @@ def cyk(dict, code):
     else:
         print("Syntax Error")
 
-v, t = read_cnf()
+v, t = read_cnf("src\cnfnew.txt")
 print()
 print("ini v")
 for i in range(len(v)):
@@ -194,6 +194,6 @@ dict_unswapped = unswap_convert_cnf(v,t)
 print("\n ini unswapped")
 print(dict_unswapped)
 
-# fc = read_inp("src\inputAcc.py")
-# print(fc)
-# cyk(dict, fc)
+fc = read_inp("src\inputAcc.py")
+print(fc)
+cyk(dict_unswapped, fc)
