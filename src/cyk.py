@@ -132,67 +132,51 @@ def read_inp(filename):
     return new_word
 
 def cyk(dict, code):
-    table = [[set([]) for j in range(len(code)+1)] for i in range(len(code)+1)]
-    #filling in the table
-    for j in range(0,len(code)):
-        #iterate over the dict
-        for lhs, rule in dict.items():
-            for rhs in rule:
-                isNumber = cvn.CheckNumber(code[j])
-                if(isNumber):
-                    code[j] = 'number'
-                # If a terminal is found
-                if len(rhs) == 1 and rhs[0] == code[j]:
-                    print("base : ", end="")
-                    print(rhs)
-                    table[j][j].add(lhs)
-  
-        for i in range(j, -1, -1):   
-            # Iterate over the range i to j + 1   
-            for k in range(i, j+1):     
-                # Iterate over the rules
-                for lhs, rule in dict.items():
-                    for rhs in rule:
-                          
-                        # If a terminal is found
-                        if len(rhs) == 2 and \
-                        rhs[0] in table[i][k] and \
-                        rhs[1] in table[k + 1][j]:
-                            print("recurrence : ", end="")
-                            print(rhs)
-                            table[i][j].add(lhs)
-
-    for i in range(len(code)+1):
-        for j in range(len(code)+1):
-            print(table[i][j], end=' ')
-        print()
-
-    if(len(table[0][len(code)-1])!= 0):
-        print("Accepted")
-    else:
-        print("Syntax Error")
+    table = [[[] for j in range(i)] for i in range(len(code),0,-1)]
+    for i in range(len(code)):
+        isNumber = cvn.CheckNumber(code[i])
+        if(isNumber):
+            code[i] = 'number'
+        if code[i] in dict:
+            table[0][i].append(dict[code[i]])
+    for i in range(1,len(code)):
+        for j in range(len(code)-i):
+            for k in range(i):
+                for el1 in table[i-k-1][j]:
+                    for el2 in table[k][j+i-k]:
+                        try:
+                            table[i][j]=dict[str(el1) + " " + str(el2)]
+                        except KeyError:
+                            continue
+                        # temp = str(el1) + " " + str(el2)
+                        # if temp in dict:
+                        #     print("gabungan ada di dict")
+                        #     table[i][j].append(dict[temp])
+    for i in range(1, len(code)):
+        for j in range(len(code)-i):
+            print(table[i][j])
 
 v, t = read_cnf("src\out.txt")
-# print()
-# print("ini v")
-# for i in range(len(v)):
-#     print(v[i])
-# print()
-# print("ini t")
-# for i in range(len(t)):
-#     print(t[i])
-# print()
-# dict = convert_cnf(v,t)
-# print("\nini dict nya")
-# print(dict)
+print()
+print("ini v")
+for i in range(len(v)):
+    print(v[i])
+print()
+print("ini t")
+for i in range(len(t)):
+    print(t[i])
+print()
+dict = convert_cnf(v,t)
+print("\nini dict nya")
+print(dict)
 
 dict_unswapped = unswap_convert_cnf(v,t)
 print("\n ini unswapped")
-# print(dict_unswapped)
+print(dict_unswapped)
 
 fc = read_inp("src\inputAcc.py")
 print(fc)
-cyk(dict_unswapped, fc)
+cyk(dict, fc)
 
 # v,t = read_cnf('src\out.txt')
 # dict = convert_cnf(v,t)
