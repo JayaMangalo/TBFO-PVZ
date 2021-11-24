@@ -116,7 +116,7 @@ def read_inp(filename):
     file = os.path.join(os.getcwd(), filename)
     file_content = []
     word_content = []
-    reserved_words = ['False', 'class', 'is', 'return', 'None', 'continue', 'for', 'True', 'def', 'from', 'while', 'and', 'not', 'with', 'as', 'elif', 'if', 'or', 'else', 'import', 'pass', 'break', 'in', 'raise']
+    reserved_words = ['False', 'class', 'is', 'return', 'None', 'continue', 'for', 'True', 'def', 'from', 'while', 'and', 'not', 'with', 'as', 'elif', 'if', 'or', 'else', 'import', 'pass', 'break', 'in', 'raise', 'print', 'input']
 
     with open(file) as fileinp:
         inp_line = fileinp.readlines()
@@ -144,14 +144,7 @@ def read_inp(filename):
                 new_word.append(word)
     return new_word
 
-def cyk(dictG, code, dictUG):
-    print()
-    print(dictG)
-    print()
-    print(code)
-    listG = cnf_list(dictG)
-    print("\nini listG")
-    print(listG)
+def cyk(dictG, code):
     table = [[[] for j in range(i)] for i in range(len(code),0,-1)]
     for i in range(len(code)):
         if code[i] in dictG:
@@ -163,42 +156,19 @@ def cyk(dictG, code, dictUG):
                     for el2 in table[k][j+i-k]:
                         temp = str(el1) + str(" ") + str(el2)
                         if temp in dictG:
-                            print("gabungan ada di dict", end="")
-                            table[i][j].extend(dictG[temp])
-                            print(table[i][j])
-                        else:
-                            # search di lhs listG apakah ada el1 dengan el2 lain, simpan rhs nya, ambil el2 lainnya
-                            el2new = ""
-                            found = False
-                            for line in listG:
-                                if line[0].split()[0] == el1 and len(line[0].split()) > 1:
-                                    found = True
-                                    rhs = line[1]
-                                    print(line[0])
-                                    el2new = line[0].split()[1]
-                            # cari el2 lainnya di dictUG apakah kanannya itu ada el2 asli
-                            # kalau ya berarti append rhs listG dimana el1 dengan el2 lain
-                            if(found):
-                                if el2new in dictUG:
-                                    if dictUG[el2new][0] == el2:
-                                        table[i][j].extend(rhs)
-                                print("el2new : ",end="")
-                                print(el2new)
-                                print("table[i][j] : ", end="")
-                                print(table[i][j])
+                            table[i][j] = dictG[temp]
+    if ('ALGORITHM' in table[-1][-1]):
+        print("Accepted")
+    else:
+        print("Syntax Error")
 
     for i in range(len(code)):
         for j in range(len(code)-i):
             print(table[i][j], end="")
         print()
-
-    if len(table[0][len(code)-1]) != 0:
-        print("Accepted")
-    else:
-        print("Syntax Error")
     
 
-v, t = read_cnf("out.txt")
+v, t = read_cnf("src\out.txt")
 # print()
 # print("ini v")
 # for i in range(len(v)):
@@ -213,11 +183,10 @@ dictGrammar = convert_cnf(v,t)
 # print(dictGrammar)
 
 dict_unswapped = unswap_convert_cnf(v,t)
-# print("\n ini unswapped")
-# print(dict_unswapped)
+print("\n ini unswapped")
+print(dict_unswapped)
 
-filename = input("Enter filename: ")
-fc = read_inp(filename)
+fc = read_inp("src\inputAcc.py")
 print(fc)
 cyk(dictGrammar, fc, dict_unswapped)
 
