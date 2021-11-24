@@ -41,46 +41,6 @@ def convert_cnf(var_rules, terminal_rules):
     
     return dict
 
-def unswap_convert_cnf(var_rules, terminal_rules):
-    dict_unswap = {}
-    for el in terminal_rules:
-        if el[1] in dict_unswap:
-            temp = []
-            for els in el[1].split():
-                temp.append(els)
-            dict_unswap[el[0]].append(temp)
-        else:
-            temp = []
-            temp2 = []
-            for els in el[1].split():
-                temp2.append(els)
-            temp.append(temp2)
-            dict_unswap[el[0]] = temp
-    for el in var_rules:
-        if el[0] in dict_unswap:
-            temp = []
-            for els in el[1].split():
-                temp.append(els)
-            dict_unswap[el[0]].append(temp)
-        else:
-            temp = []
-            temp2 = []
-            for els in el[1].split():
-                temp2.append(els)
-            temp.append(temp2)
-            dict_unswap[el[0]] = temp
-    return dict_unswap
-
-def cnf_list(dictcnf):
-    listcnf = []
-
-    for key in dictcnf:
-        listoflist = []
-        listoflist.append(key)
-        listoflist.append(dictcnf[key])
-        listcnf.append(listoflist)
-    
-    return listcnf
 
 def separator(lines):
     new_lines = []
@@ -116,7 +76,7 @@ def read_inp(filename):
     file = os.path.join(os.getcwd(), filename)
     file_content = []
     word_content = []
-    reserved_words = ['false', 'class', 'is', 'return', 'none', 'continue', 'for', 'true', 'def', 'from', 'while', 'and', 'not', 'with', 'as', 'elif', 'if', 'or', 'else', 'import', 'pass', 'break', 'in', 'raise', 'print', 'input', '+', '-', '*', '/', '%', '!', '=', '>', '<', '(', ')', '\'', '\"', ':', 'str', 'float', 'int', 'range', 'len', ',', 'break', 'ValueError', 'ZeroDivisionError', 'ImportError', 'NameError', 'TypeError', '[', ']', '{', '}', '&', '^']
+    reserved_words = ['+', '-' , '*', '/', '%', '=', '>', '<', '!', '[' ,']', '(' ,')', '\'', '\"', ':', ',', '&', '^', 'variable', 'number', 'string', 'str', 'int', 'float', 'chr', 'double', 'true', 'false', 'none', 'and', 'or', 'not', 'as', 'break', 'continue', 'class', 'def', 'if', 'elif', 'else', 'raise', 'for', 'in', 'from', 'import', 'is', 'pass', 'return', 'while','with','input','print','range']
 
     with open(file) as fileinp:
         inp_line = fileinp.readlines()
@@ -161,36 +121,10 @@ def cyk(dictG, code):
         print("Accepted")
     else:
         print("Syntax Error")
-
-    for i in range(len(code)):
-        for j in range(len(code)-i):
-            print(table[i][j], end="")
-        print()
     
 
-v, t = read_cnf("src\out.txt")
-# print()
-# print("ini v")
-# for i in range(len(v)):
-#     print(v[i])
-# print()
-# print("ini t")
-# for i in range(len(t)):
-#     print(t[i])
-# print()
-dictGrammar = convert_cnf(v,t)
-# print("\nini dict nya")
-# print(dictGrammar)
-
-dict_unswapped = unswap_convert_cnf(v,t)
-print("\n ini unswapped")
-print(dict_unswapped)
-
-fc = read_inp("src\inputAcc.py")
-print(fc)
-cyk(dictGrammar, fc, dict_unswapped)
-
-# v,t = read_cnf('src\out.txt')
-# dict = convert_cnf(v,t)
-# fc = ['b', 'b']
-# cyk(dict, fc)
+if __name__ == '__main__':
+    v, t = read_cnf("out.txt")
+    dictGrammar = convert_cnf(v,t)
+    fc = read_inp("inputAcc.py")
+    cyk(dictGrammar, fc)
