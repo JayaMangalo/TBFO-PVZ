@@ -1,2 +1,3 @@
 def do_something(x):
-    return "Doodoo"
+    x = x + 2
+    return x

@@ -127,56 +127,58 @@ def read_inp(filename):
         else:
             if(cvn.CheckVariableName(word) and word not in reserved_words):
                 new_word.append('variable')
+            elif(word != "string" and word != "variable" and cvn.CheckNumber(word)):
+                new_word.append('number')
             else:
                 new_word.append(word)
     return new_word
 
-def cyk(dict, code):
+def cyk(dictG, code):
+    print()
+    print(dictG)
+    print()
+    print(code)
     table = [[[] for j in range(i)] for i in range(len(code),0,-1)]
     for i in range(len(code)):
-        isNumber = cvn.CheckNumber(code[i])
-        if(isNumber):
-            code[i] = 'number'
-        if code[i] in dict:
-            table[0][i].append(dict[code[i]])
+        if code[i] in dictG:
+            table[0][i].extend(dictG[code[i]])
     for i in range(1,len(code)):
         for j in range(len(code)-i):
             for k in range(i):
                 for el1 in table[i-k-1][j]:
                     for el2 in table[k][j+i-k]:
-                        try:
-                            table[i][j]=dict[str(el1) + " " + str(el2)]
-                        except KeyError:
-                            continue
-                        # temp = str(el1) + " " + str(el2)
-                        # if temp in dict:
-                        #     print("gabungan ada di dict")
-                        #     table[i][j].append(dict[temp])
-    for i in range(1, len(code)):
+                        temp = str(el1) + str(" ") + str(el2)
+                        if temp in dictG:
+                            print("gabungan ada di dict", end="")
+                            table[i][j] = dictG[temp]
+                            print(table[i][j])
+    for i in range(len(code)):
         for j in range(len(code)-i):
-            print(table[i][j])
+            print(table[i][j], end="")
+        print()
+    
 
 v, t = read_cnf("src\out.txt")
-print()
-print("ini v")
-for i in range(len(v)):
-    print(v[i])
-print()
-print("ini t")
-for i in range(len(t)):
-    print(t[i])
-print()
-dict = convert_cnf(v,t)
+# print()
+# print("ini v")
+# for i in range(len(v)):
+#     print(v[i])
+# print()
+# print("ini t")
+# for i in range(len(t)):
+#     print(t[i])
+# print()
+dictGrammar = convert_cnf(v,t)
 print("\nini dict nya")
-print(dict)
+print(dictGrammar)
 
-dict_unswapped = unswap_convert_cnf(v,t)
-print("\n ini unswapped")
-print(dict_unswapped)
+# dict_unswapped = unswap_convert_cnf(v,t)
+# print("\n ini unswapped")
+# print(dict_unswapped)
 
 fc = read_inp("src\inputAcc.py")
 print(fc)
-cyk(dict, fc)
+cyk(dictGrammar, fc)
 
 # v,t = read_cnf('src\out.txt')
 # dict = convert_cnf(v,t)
