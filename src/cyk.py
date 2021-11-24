@@ -191,9 +191,14 @@ def cyk(dictG, code, dictUG):
         for j in range(len(code)-i):
             print(table[i][j], end="")
         print()
+
+    if len(table[0][len(code)-1]) != 0:
+        print("Accepted")
+    else:
+        print("Syntax Error")
     
 
-v, t = read_cnf("src\out.txt")
+v, t = read_cnf("out.txt")
 # print()
 # print("ini v")
 # for i in range(len(v)):
@@ -208,10 +213,11 @@ dictGrammar = convert_cnf(v,t)
 # print(dictGrammar)
 
 dict_unswapped = unswap_convert_cnf(v,t)
-print("\n ini unswapped")
-print(dict_unswapped)
+# print("\n ini unswapped")
+# print(dict_unswapped)
 
-fc = read_inp("src\inputAcc.py")
+filename = input("Enter filename: ")
+fc = read_inp(filename)
 print(fc)
 cyk(dictGrammar, fc, dict_unswapped)
 

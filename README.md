@@ -7,4 +7,7 @@
 - Maharani Ayu Putri Irawan(13520019)
 
 ##Cara menggunakan
+- Masuk ke direktori src
+- Ketik python cyk.py di terminal
+- Masukkan nama file yang ingin di cek kebenarannya. (CNF yang digunakan untuk mengecek kebenaran adalah cnf.txt)
   
