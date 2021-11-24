@@ -71,6 +71,17 @@ def unswap_convert_cnf(var_rules, terminal_rules):
             dict_unswap[el[0]] = temp
     return dict_unswap
 
+def cnf_list(dictcnf):
+    listcnf = []
+
+    for key in dictcnf:
+        listoflist = []
+        listoflist.append(key)
+        listoflist.append(dictcnf[key])
+        listcnf.append(listoflist)
+    
+    return listcnf
+
 def separator(lines):
     new_lines = []
     for line in lines:
@@ -133,11 +144,14 @@ def read_inp(filename):
                 new_word.append(word)
     return new_word
 
-def cyk(dictG, code):
+def cyk(dictG, code, dictUG):
     print()
     print(dictG)
     print()
     print(code)
+    listG = cnf_list(dictG)
+    print("\nini listG")
+    print(listG)
     table = [[[] for j in range(i)] for i in range(len(code),0,-1)]
     for i in range(len(code)):
         if code[i] in dictG:
@@ -150,8 +164,29 @@ def cyk(dictG, code):
                         temp = str(el1) + str(" ") + str(el2)
                         if temp in dictG:
                             print("gabungan ada di dict", end="")
-                            table[i][j] = dictG[temp]
+                            table[i][j].extend(dictG[temp])
                             print(table[i][j])
+                        else:
+                            # search di lhs listG apakah ada el1 dengan el2 lain, simpan rhs nya, ambil el2 lainnya
+                            el2new = ""
+                            found = False
+                            for line in listG:
+                                if line[0].split()[0] == el1 and len(line[0].split()) > 1:
+                                    found = True
+                                    rhs = line[1]
+                                    print(line[0])
+                                    el2new = line[0].split()[1]
+                            # cari el2 lainnya di dictUG apakah kanannya itu ada el2 asli
+                            # kalau ya berarti append rhs listG dimana el1 dengan el2 lain
+                            if(found):
+                                if el2new in dictUG:
+                                    if dictUG[el2new][0] == el2:
+                                        table[i][j].extend(rhs)
+                                print("el2new : ",end="")
+                                print(el2new)
+                                print("table[i][j] : ", end="")
+                                print(table[i][j])
+
     for i in range(len(code)):
         for j in range(len(code)-i):
             print(table[i][j], end="")
@@ -169,16 +204,16 @@ v, t = read_cnf("src\out.txt")
 #     print(t[i])
 # print()
 dictGrammar = convert_cnf(v,t)
-print("\nini dict nya")
-print(dictGrammar)
+# print("\nini dict nya")
+# print(dictGrammar)
 
-# dict_unswapped = unswap_convert_cnf(v,t)
-# print("\n ini unswapped")
-# print(dict_unswapped)
+dict_unswapped = unswap_convert_cnf(v,t)
+print("\n ini unswapped")
+print(dict_unswapped)
 
 fc = read_inp("src\inputAcc.py")
 print(fc)
-cyk(dictGrammar, fc)
+cyk(dictGrammar, fc, dict_unswapped)
 
 # v,t = read_cnf('src\out.txt')
 # dict = convert_cnf(v,t)

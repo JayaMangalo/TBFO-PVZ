@@ -1,3 +1,2 @@
-def do_something(x):
+def do_something():
     x = x + 2
-    return x
