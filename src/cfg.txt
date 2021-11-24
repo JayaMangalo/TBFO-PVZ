@@ -1,15 +1,18 @@
 Terminals:
-+ - * / % = > < ! [ ] ( ) ' " # : , & ^ variable number string str int float char True False none and or not as break continue class def if elif else raise for in from import is pass return while with input print
++ - * / % = > < ! [ ] ( ) ' " : , & ^ variable number string str int float true false none and or not as break continue class def if elif else raise for in from import is pass return while with input print range
 Variables:
 ALGORITHM WHILE FOR DEF CLASS IMPORT FROM DECLARE PRINT INPUT VAR VARIABLE1 VARIABLE2 VARIABLE3 VARIABLE4 VARIABLE5 OPERATOR OTHER_OPERATOR RELATION STRING COMMENT TYPE BOOLEAN AND OR NOT IS NONE AS BREAK CONTINUE FUNCTION_CALL IF ELIF ELSE RAISE RANGE IN PASS RETURN WITH INLINE_FOR INLINE_RANGE DICTIONARY
 Productions:
-ALGORITHM -> ALGORITHM ALGORITHM | WHILE | FOR | DEF | CLASS | IMPORT | FROM | DECLARE | PRINT | INPUT;
+ALGORITHM -> ALGORITHM ALGORITHM | WHILE | FOR | DEF | CLASS | IMPORT | FROM | DECLARE | PRINT;
+
+
+
 VAR -> variable;
 DECLARE -> VAR = VARIABLE4 | VAR = [ ] | VAR = [ INLINE_FOR ] | VAR = [ VARIABLE5 ] | VAR OTHER_OPERATOR VARIABLE3 | DICTIONARY;
 VARIABLE1 -> VAR | VARIABLE2;
 VARIABLE2 -> VARIABLE1 OPERATOR VARIABLE1 | number | BOOLEAN | STRING;
-VARIABLE3 -> VAR | number;
-VARIABLE4 -> VARIABLE3 | VARIABLE3 OPERATOR VARIABLE3;
+VARIABLE3 -> VAR | number |;
+VARIABLE4 -> VARIABLE3 | VARIABLE3 OPERATOR VARIABLE3 | VARIABLE3 OTHER_OPERATOR VARIABLE3;
 VARIABLE5 -> VAR | VAR , VAR;
 OPERATOR -> + | - | * | / |  / / | % | * *;
 OTHER_OPERATOR -> * = | + = | - = | / = | % = | / / = | * * = | & = | ^ = | > > = | < < =;
