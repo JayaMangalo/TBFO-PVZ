@@ -116,7 +116,7 @@ def read_inp(filename):
     file = os.path.join(os.getcwd(), filename)
     file_content = []
     word_content = []
-    reserved_words = ['False', 'class', 'is', 'return', 'None', 'continue', 'for', 'True', 'def', 'from', 'while', 'and', 'not', 'with', 'as', 'elif', 'if', 'or', 'else', 'import', 'pass', 'break', 'in', 'raise', 'print', 'input']
+    reserved_words = ['false', 'class', 'is', 'return', 'none', 'continue', 'for', 'true', 'def', 'from', 'while', 'and', 'not', 'with', 'as', 'elif', 'if', 'or', 'else', 'import', 'pass', 'break', 'in', 'raise', 'print', 'input', '+', '-', '*', '/', '%', '!', '=', '>', '<', '(', ')', '\'', '\"', ':', 'str', 'float', 'int', 'range', 'len', ',', 'break', 'ValueError', 'ZeroDivisionError', 'ImportError', 'NameError', 'TypeError', '[', ']', '{', '}', '&', '^']
 
     with open(file) as fileinp:
         inp_line = fileinp.readlines()
@@ -133,14 +133,14 @@ def read_inp(filename):
                 stack.pop()
             else:
                 stack.append(word)
-        if (len(stack) > 0 and word != '\'' and word != '\"'):
+        if (len(stack) > 0 and word != '\'' and word != '\"' and word not in reserved_words):
             new_word.append('string')
         else:
             if(cvn.CheckVariableName(word) and word not in reserved_words):
                 new_word.append('variable')
             elif(word != "string" and word != "variable" and cvn.CheckNumber(word)):
                 new_word.append('number')
-            else:
+            else: #reserved words
                 new_word.append(word)
     return new_word
 
