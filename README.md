@@ -11,3 +11,4 @@
 - Ketik python cyk.py di terminal
 - Masukkan nama file yang ingin di cek kebenarannya. (CNF yang digunakan untuk mengecek kebenaran adalah cnf.txt)
   
+# P.S It doesnt work
